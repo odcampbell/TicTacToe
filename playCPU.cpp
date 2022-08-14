@@ -171,7 +171,6 @@ int minimax(char** board, int depth, bool isMaximizing){
 
                 if (score > bestScore){
                     bestScore = score;
-                   //bestSpot = cpuSpot;
                 }
             }
         }
@@ -181,7 +180,6 @@ int minimax(char** board, int depth, bool isMaximizing){
         int i,score;
         int spot = 0;
         int bestScore=10000000;
-       // int bestSpot = 0;
 
         for(i=0; i<9; i++){
             //if open spot
@@ -193,7 +191,6 @@ int minimax(char** board, int depth, bool isMaximizing){
 
                 if (score < bestScore){
                     bestScore = score;
-                    //bestSpot = spot;
                 }
             }
         }
@@ -253,7 +250,6 @@ void playVsCp(char** board){
     bool boardSpot=false, win1= false,win2=false;
     
     while(1){
-        //cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         //Break on tie why here??
         if(tie==9) break;
