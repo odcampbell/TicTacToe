@@ -13,7 +13,7 @@ int main(){
     char** gameBoard;  //2d array 
     bool validSelection = true;
     gameBoard = new char*[3]; 
-    makeBoard(gameBoard); //set mem and initialize 0-8
+    MakeBoard(gameBoard); //set mem and initialize 0-8
     
     while(1){
 
@@ -23,9 +23,9 @@ int main(){
 
             //start of new match
             cout<<"Here's a Clean Board"<<endl;
-            printPlacement();
+            PrintPlacement();
             cout<<endl;
-            printMenu();
+            PrintMenu();
 
              if (!(cin >> userSelection)) { //input verification
                 cout << "Please enter numbers only." << endl;
@@ -52,22 +52,22 @@ int main(){
         if(userSelection == 1){
             cout<< endl <<"Let's play!"<<endl<< endl;
             cin.ignore(10000,'\n');
-            userVsUser(gameBoard); 
-            clearBoard(gameBoard);
+            UserVsUser(gameBoard); 
+            ClearBoard(gameBoard);
             cout<<endl;
         }
         else if(userSelection == 2){
             cout<< endl <<"Playing CPU! You go first!"<<endl<< endl;
 
-            playVsCp(gameBoard);
-            clearBoard(gameBoard);
+            PlayVsCp(gameBoard);
+            ClearBoard(gameBoard);
             cout<<endl;
         }
         else if(userSelection == 3){
             cout<< endl <<"Playing CPU! And CPU goes First!"<<endl<< endl;
 
-            cpuGoesFirst(gameBoard); 
-            clearBoard(gameBoard);
+            CpuGoesFirst(gameBoard); 
+            ClearBoard(gameBoard);
             cout<<endl;
         }
         else if (userSelection == 4){
@@ -81,7 +81,7 @@ int main(){
 
     }
 
-    freeBoard(gameBoard);
+    FreeBoard(gameBoard);
 
     return 0;
 }

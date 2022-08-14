@@ -8,7 +8,7 @@ using  namespace std;
 
 //allocates mem for board and initializes it
 //main
-void makeBoard(char** board){ //Works
+void MakeBoard(char** board){ //Works
      int i,j;
 
     //initilizes array with spaces
@@ -25,7 +25,7 @@ void makeBoard(char** board){ //Works
 
 //main
 //helper function 
-void printVector(){
+void PrintVector(){
     int i;
     for(i=0; i<9; i++){
         cout<<boardList[i]<<' ';
@@ -35,7 +35,7 @@ void printVector(){
 
 //main
 //make a play vs pc option and a play vs another option
-void printMenu(){  //Works
+void PrintMenu(){  //Works
     cout<<"   MENU"<< endl;
     cout<<"----------"<<endl;
     cout<<"1. Play A Multi Player Match"<<endl;
@@ -48,16 +48,16 @@ void printMenu(){  //Works
 
 //main
 //code for user vs User Tic Tac Toe (make sep program? include in this file)
-void userVsUser(char** board){
+void UserVsUser(char** board){
 
     //Get Symbols
     char player1, player2;
     
     cout<<"Player 1, enter your symbol: ";
-    player1 = getPlayerSymbol(1);
+    player1 = GetPlayerSymbol(1);
 
     cout<<endl<<"Player 2, enter your symbol: ";
-    player2 = getPlayerSymbol(2,player1);
+    player2 = GetPlayerSymbol(2,player1);
 
     cout<<"1 = "<<player1<<endl<<"2 = "<<player2<<endl;
     cout<<endl;
@@ -65,7 +65,7 @@ void userVsUser(char** board){
     players[0] = player1;
     players[1] = player2;
 
-    printBoard(board);
+    PrintBoard(board);
 
     //Get position and place on board
     char userChoice;
@@ -84,18 +84,18 @@ void userVsUser(char** board){
             cout<<endl<<"Player #1, Choose a spot: "; 
             
             cin>> userChoice; 
-            boardSpot = placeSymbol(player1,userChoice,board);
+            boardSpot = PlaceSymbol(player1,userChoice,board);
 
             if(boardSpot == false){
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 continue;
             } 
             cout<<endl;
-            printBoard(board);
+            PrintBoard(board);
         }
 
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        if((win1=checkWinCondition(player1,board))) break;
+        if((win1=CheckWinCondition(player1,board))) break;
         
         tie++;
         if(tie==9) break;
@@ -106,16 +106,16 @@ void userVsUser(char** board){
 
             cout<<endl<<"Player #2, Choose a spot: "; 
             cin>> userChoice; 
-            boardSpot = placeSymbol(player2,userChoice,board);
+            boardSpot = PlaceSymbol(player2,userChoice,board);
             if(boardSpot == false){
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 continue;
             } 
             cout<<endl;
-            printBoard(board);
+            PrintBoard(board);
         }
 
-        if((win2=checkWinCondition(player2,board))) break;
+        if((win2=CheckWinCondition(player2,board))) break;
         boardSpot=false;
         tie++;
 
@@ -128,7 +128,7 @@ void userVsUser(char** board){
 }
 
 //Works! //main
-void clearBoard(char** board){
+void ClearBoard(char** board){
     int i,j;
 
      //clear placement boardList
@@ -146,7 +146,7 @@ void clearBoard(char** board){
 }
 
 //does this free properly?? //main
-void freeBoard(char** board ){
+void FreeBoard(char** board ){
      int i;
     //initilizes array with spaces
     for(i=0; i<3; i++){

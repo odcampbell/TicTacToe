@@ -7,14 +7,14 @@ using namespace std;
 extern char players[2]; //holds each players char after updated in main game fucntions
 
 
-void printBoard(char **board);
-void printPlacement();
-char getPlayerSymbol(int player, char player1Symbol ='O');
-bool checkPos(int userPosition);
-bool placeSymbol(char symbol, char pos, char** board, bool vsCPU=false);
-bool horizonalWin(char symbol, char** board);
-bool verticalWin(char symbol,char** board);
-bool checkWinCondition(char symbol, char** board);
-int allWinConditions(char** board);
-bool diagonalWin(char symbol,char** board);
-void swapUsers();
+void PrintBoard(char **board);
+void PrintPlacement();
+char GetPlayerSymbol(int player, char player1Symbol ='O');
+bool CheckPos(int userPosition);
+bool PlaceSymbol(char symbol, char pos, char** board, bool vsCPU=false);
+bool HorizonalWin(char symbol, char** board);
+bool VerticalWin(char symbol,char** board);
+bool CheckWinCondition(char symbol, char** board);
+int AllWinConditions(char** board);
+bool DiagonalWin(char symbol,char** board);
+void SwapUsers();

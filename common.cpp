@@ -8,7 +8,7 @@ char players[2]={'0','0'}; //holds each players char after updated in main game 
 vector<int> boardList(9,0);
 
 //Print current board after user move
-void printBoard(char **board){ //Works
+void PrintBoard(char **board){
     int i,j;
     for(i=0; i<3; i++){
         for(j=0; j<3; j++){
@@ -33,7 +33,7 @@ void printBoard(char **board){ //Works
 //but its just a small quality of life improvement to know what spots are left
 //could also use minimax algorithim to suggest hint on best move to user! with an option to see the hint or not
 // before choosing their spot what if it results in a tie?? tell user if they want to see hint
-void printPlacement(){
+void PrintPlacement(){
     int i,j,k=0;
     for(i=0; i<3; i++){
         for(j=0; j<3; j++){
@@ -57,7 +57,7 @@ void printPlacement(){
 //Called two times to get symbols
 //second time, pass in player one's symbol to make sure player 2 doesn't equal 1
 // or called one time to only get player1's symbol (when playing CPU, who's hard coded)
-char getPlayerSymbol(int player, char player1Symbol ='O'){ //WORKS
+char GetPlayerSymbol(int player, char player1Symbol ='O'){ //WORKS
     //make var and save user input
     char symbol;
     cin>> symbol;
@@ -85,13 +85,13 @@ char getPlayerSymbol(int player, char player1Symbol ='O'){ //WORKS
   so I think Ill leave it in its configuration, obviously whenever the board is changed tho, you must be sure to update the vector
   or this function would lead to logic errors
 */
-bool checkPos(int userPosition){ //works!
+bool CheckPos(int userPosition){ //works!
     bool checker = true;
     if(boardList.at(userPosition) == 1) checker = false;
     return checker;
 }
 
-void swapUsers(){
+void SwapUsers(){
     char temp;
     temp = players[1];
     players[1]=players[0];
@@ -101,7 +101,7 @@ void swapUsers(){
   //uses a switch statement to place a symbol at a specific spot on the board
   //could refactor to not have to do the symbol change thing (would look more like the cpuPlaceSymbol)
   //function, but would have to type convert the input prior
-bool placeSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works!
+bool PlaceSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works!
     
     bool check = false;
     int pos1=0;
@@ -109,7 +109,7 @@ bool placeSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works
     switch(pos){
         case '0':
             pos1=0;
-            if((check = checkPos(pos1))){
+            if((check = CheckPos(pos1))){
                 board[0][0] = symbol;
                 boardList.at(pos1) = 1;
             }
@@ -118,7 +118,7 @@ bool placeSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works
 
         case '1':
             pos1 = 1;
-            if((check = checkPos(pos1))){
+            if((check = CheckPos(pos1))){
                 board[0][1] = symbol;
                 boardList.at(pos1) = 1;
             }
@@ -127,7 +127,7 @@ bool placeSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works
 
         case '2':
             pos1 = 2;
-            if((check = checkPos(pos1))){
+            if((check = CheckPos(pos1))){
                 board[0][2] = symbol;
                 boardList.at(pos1) = 1;
             }
@@ -136,7 +136,7 @@ bool placeSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works
 
         case '3':
             pos1 = 3;
-            if((check = checkPos(pos1))){
+            if((check = CheckPos(pos1))){
                 board[1][0] = symbol;
                 boardList.at(pos1) = 1;
             }
@@ -145,7 +145,7 @@ bool placeSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works
 
         case '4':
             pos1 = 4;
-            if((check = checkPos(pos1))){
+            if((check = CheckPos(pos1))){
                 board[1][1] = symbol;
                 boardList.at(pos1) = 1;
             }
@@ -154,7 +154,7 @@ bool placeSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works
 
         case '5':
             pos1 = 5;
-            if((check = checkPos(pos1))){
+            if((check = CheckPos(pos1))){
                 board[1][2] = symbol;
                 boardList.at(pos1) = 1;
             }
@@ -163,7 +163,7 @@ bool placeSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works
 
         case '6':
             pos1 = 6;
-            if((check = checkPos(pos1))){
+            if((check = CheckPos(pos1))){
                 board[2][0] = symbol;
                 boardList.at(pos1) = 1;
             }
@@ -172,7 +172,7 @@ bool placeSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works
 
         case '7':
             pos1 = 7;
-            if((check = checkPos(pos1))){
+            if((check = CheckPos(pos1))){
                 board[2][1] = symbol;
                 boardList.at(pos1) = 1;
             }
@@ -181,7 +181,7 @@ bool placeSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works
 
         case '8':
             pos1 = 8;
-            if((check = checkPos(pos1))){
+            if((check = CheckPos(pos1))){
                 board[2][2] = symbol;
                 boardList.at(pos1) = 1;
             }
@@ -193,10 +193,10 @@ bool placeSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works
                 cout<<"Error! Pick a valid board placement (0-8)"<<endl;
                 break;
             }
-            swapUsers();
-            hint = findCpuSpot(symbol,board,false);
+            SwapUsers();
+            hint = FindCpuSpot(symbol,board,false);
             cout<< "Try this spot: "<<hint<<endl;
-            swapUsers();
+            SwapUsers();
             break;
 
         default:
@@ -209,7 +209,7 @@ bool placeSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works
 //Loops through entire board, checks if win var = 3 for each row
 // increments that var every time it finds the symbol, sets a boolean flag 
 //if it has 3 in a row
-bool horizonalWin(char symbol, char** board){ //WORKS
+bool HorizonalWin(char symbol, char** board){ //WORKS
     int i,j, win=0;
     bool winCond = false;
     //i=rows
@@ -229,7 +229,7 @@ bool horizonalWin(char symbol, char** board){ //WORKS
 
 //Loops through entire board, keeps count var for each col, 
 //if any of them = 3, return true
-bool verticalWin(char symbol,char** board){
+bool VerticalWin(char symbol,char** board){
     int i,j;
     int win1=0,win2=0,win3=0;
     bool winCond = false;
@@ -263,7 +263,7 @@ bool verticalWin(char symbol,char** board){
 /*Since I started my board at 0 instead of 1, I believe I through off potential 
   to us a better means of checking via modulo, so I hard coded it instead
 */
-bool diagonalWin(char symbol,char** board){
+bool DiagonalWin(char symbol,char** board){
     int win =0;
     bool winCond = false;
     if((board[0][0] == symbol) && (board[1][1] == symbol) && (board[2][2] == symbol)) win = 3;
@@ -275,11 +275,11 @@ bool diagonalWin(char symbol,char** board){
 
 //Checks to see if player with the given symbol has three of them in a row
 //Used to signal that someone has won the game and to exit the game being played
-bool checkWinCondition(char symbol, char** board){
+bool CheckWinCondition(char symbol, char** board){
     bool winCond = false;
-    if(horizonalWin(symbol,board) == true) winCond = true; 
-    if(verticalWin(symbol,board) == true) winCond = true;
-    if(diagonalWin(symbol,board) == true) winCond = true;
+    if(HorizonalWin(symbol,board) == true) winCond = true; 
+    if(VerticalWin(symbol,board) == true) winCond = true;
+    if(DiagonalWin(symbol,board) == true) winCond = true;
 
     return winCond;
 }
@@ -287,12 +287,12 @@ bool checkWinCondition(char symbol, char** board){
 //Checks to see if either player won, if there's at tie, or if the match is still going
 //returns 1 for player 1, 2 for player 2 or CP, 3 for tie, and 4 for no win yet
 //added this code really to help with the minimax function which needed to know the games state
-int allWinConditions(char** board){
+int AllWinConditions(char** board){
     bool win1,win2;
     int openSpots=0;
 
-    win1 = checkWinCondition(players[0],board);//user
-    win2 = checkWinCondition(players[1],board); //computer
+    win1 = CheckWinCondition(players[0],board);//user
+    win2 = CheckWinCondition(players[1],board); //computer
 
     int i,j;
     for(i=0; i<3; i++){

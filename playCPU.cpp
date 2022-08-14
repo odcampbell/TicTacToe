@@ -7,7 +7,7 @@
 using  namespace std;
 
 //Places cpu symbol on board, used for that and temporarally using Minimax
-void cpuPlaceSymbol(char symbol, int pos, char**board){
+void CpuPlaceSymbol(char symbol, int pos, char**board){
 
     switch(pos){
         case 0:
@@ -65,7 +65,7 @@ void cpuPlaceSymbol(char symbol, int pos, char**board){
 }
 
 //Resets board and boardList at position, for cpu to use Minimax 
-void removeSymbol(int pos, char**board){
+void RemoveSymbol(int pos, char**board){
 
     switch(pos){
         case 0:
@@ -122,7 +122,7 @@ void removeSymbol(int pos, char**board){
     }
 }
 
-int miniMaxCond(int winCond){
+int MiniMaxCond(int winCond){
     int minMaxVal = 0;
     switch(winCond){
         case 1:
@@ -146,11 +146,11 @@ int miniMaxCond(int winCond){
 
 //allows playing AI, didnt need bool actually, not really accounting for 
 //depth so cp wont always take insta win, but may take double win next turn
-int minimax(char** board, int depth, bool isMaximizing){
+int MiniMax(char** board, int depth, bool isMaximizing){
     //Terminating Case: There are no more moves to make due to a win or a tie
-    int result = allWinConditions(board);
+    int result = AllWinConditions(board);
     if(result != 4){
-        int scoreTemp = miniMaxCond(result);
+        int scoreTemp = MiniMaxCond(result);
         return scoreTemp;
     }
     
@@ -163,11 +163,11 @@ int minimax(char** board, int depth, bool isMaximizing){
 
         for(i=0; i<9; i++){
             //if open spot
-            if(checkPos(i)){
+            if(CheckPos(i)){
                 cpuSpot = i;
-                cpuPlaceSymbol(players[1],cpuSpot,board);
-                score = minimax(board,depth+1,false);
-                removeSymbol(cpuSpot,board);
+                CpuPlaceSymbol(players[1],cpuSpot,board);
+                score = MiniMax(board,depth+1,false);
+                RemoveSymbol(cpuSpot,board);
 
                 if (score > bestScore){
                     bestScore = score;
@@ -185,11 +185,11 @@ int minimax(char** board, int depth, bool isMaximizing){
 
         for(i=0; i<9; i++){
             //if open spot
-            if(checkPos(i)){
+            if(CheckPos(i)){
                 spot = i;
-                cpuPlaceSymbol(players[0],spot,board);
-                score = minimax(board,depth+1,true);
-                removeSymbol(spot,board);
+                CpuPlaceSymbol(players[0],spot,board);
+                score = MiniMax(board,depth+1,true);
+                RemoveSymbol(spot,board);
 
                 if (score < bestScore){
                     bestScore = score;
@@ -201,7 +201,7 @@ int minimax(char** board, int depth, bool isMaximizing){
     }
 }
 
- int findCpuSpot(char cpuSymbol, char**board,bool turn){
+ int FindCpuSpot(char cpuSymbol, char**board,bool turn){
     int i,score;
     bool spot = false;
     int cpuSpot = 0;
@@ -210,12 +210,12 @@ int minimax(char** board, int depth, bool isMaximizing){
 
 
     for(i=0; i<9; i++){
-        spot = checkPos(i);
+        spot = CheckPos(i);
         if(spot){
             cpuSpot = i;
-            cpuPlaceSymbol(cpuSymbol,cpuSpot,board);
-            score = minimax(board,0,turn);
-            removeSymbol(cpuSpot,board);
+            CpuPlaceSymbol(cpuSymbol,cpuSpot,board);
+            score = MiniMax(board,0,turn);
+            RemoveSymbol(cpuSpot,board);
 
             if(score > bestScore){
                 bestScore = score;
@@ -227,25 +227,25 @@ int minimax(char** board, int depth, bool isMaximizing){
 }
 
 //code for playing CP Tic Tac Toe where cp goes second
-void playVsCp(char** board){
+void PlayVsCp(char** board){
 
       //Get Symbols
     char player1, cpuPlayer;
     
     cout<<"Player 1, enter your symbol: ";
-    player1 = getPlayerSymbol(1);
+    player1 = GetPlayerSymbol(1);
     
     if(player1 == 'O' || player1 =='o' || player1 == '0' || player1 == 'Q') cpuPlayer = 'X';
     else cpuPlayer = 'O';
     
-    //update global string for minimax function to chekc win condition
+    //update global string for MiniMax function to chekc win condition
     players[0] = player1;
     players[1] = cpuPlayer;
 
     cout<<"Player 1 = "<<players[0]<<endl<<"CPU = "<<players[1]<<endl;
     cout<<endl;
 
-    printBoard(board);
+    PrintBoard(board);
 
       //Get position and place on board
     char userChoice, cpuChoice;
@@ -263,18 +263,18 @@ void playVsCp(char** board){
 
             cout<<endl<<"Player #1, Choose a spot, or choose '9' for a hint: "; 
             cin>> userChoice; 
-            boardSpot = placeSymbol(player1,userChoice,board,true);
+            boardSpot = PlaceSymbol(player1,userChoice,board,true);
 
             if(boardSpot == false){
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 continue;
             } 
             cout<<endl;
-            printBoard(board);
+            PrintBoard(board);
         }
 
         
-        if((win1=checkWinCondition(player1,board))) break;
+        if((win1=CheckWinCondition(player1,board))) break;
         tie++;
 
         if(tie==9) break;
@@ -284,15 +284,15 @@ void playVsCp(char** board){
 
         cout<<endl<<"CPU is choosing a spot: "; 
         
-        cpuChoice = findCpuSpot(cpuPlayer,board,false);
-        cpuPlaceSymbol(cpuPlayer,cpuChoice,board);
+        cpuChoice = FindCpuSpot(cpuPlayer,board,false);
+        CpuPlaceSymbol(cpuPlayer,cpuChoice,board);
         
         cout<<endl;
         Sleep(900);
-        printBoard(board);
+        PrintBoard(board);
 
 
-        if((win2=checkWinCondition(cpuPlayer,board))) break;
+        if((win2=CheckWinCondition(cpuPlayer,board))) break;
         
         tie++;
     }
@@ -302,25 +302,25 @@ void playVsCp(char** board){
 
 }
 
-void cpuGoesFirst(char** board){
+void CpuGoesFirst(char** board){
 
       //Get Symbols //changed player2 to player in this context makes more sense
     char player, cpuPlayer;
     
     cout<<"Player, enter your symbol: ";
-    player = getPlayerSymbol(1);
+    player = GetPlayerSymbol(1);
     
     if(player == 'O' || player =='o' || player == '0' || player == 'Q') cpuPlayer = 'X';
     else cpuPlayer = 'O';
     
-    //update global string for minimax function to chekc win condition
+    //update global string for MiniMax function to chekc win condition
     players[0] = player;
     players[1] = cpuPlayer;
 
     cout<<"CPU = "<<players[1]<<endl<<"Player = "<<players[0]<<endl;
     cout<<endl;
 
-    printBoard(board);
+    PrintBoard(board);
 
       //Get position and place on board
     char userChoice, cpuChoice;
@@ -332,13 +332,13 @@ void cpuGoesFirst(char** board){
 
         //Player #1 choose spot, reloop on bad spot
         cout<<endl<<"CPU is choosing a spot: "; 
-        cpuChoice = findCpuSpot(cpuPlayer,board,false);
-        cpuPlaceSymbol(cpuPlayer,cpuChoice,board);
+        cpuChoice = FindCpuSpot(cpuPlayer,board,false);
+        CpuPlaceSymbol(cpuPlayer,cpuChoice,board);
         cout<<endl;
         Sleep(900);
-        printBoard(board);
+        PrintBoard(board);
 
-        if((win2=checkWinCondition(cpuPlayer,board))) break;
+        if((win2=CheckWinCondition(cpuPlayer,board))) break;
         tie++;
 
         //Break on tie
@@ -351,18 +351,18 @@ void cpuGoesFirst(char** board){
             cout<<endl<<"Player #2, Choose a spot, or choose '9' for a hint: ";
             cin>> userChoice; 
            
-            boardSpot = placeSymbol(player,userChoice,board,true);
+            boardSpot = PlaceSymbol(player,userChoice,board,true);
 
             if(boardSpot == false){
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 continue;
             } 
             cout<<endl;
-            printBoard(board);
+            PrintBoard(board);
         }
 
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        if((win1=checkWinCondition(player,board))) break;
+        if((win1=CheckWinCondition(player,board))) break;
         tie++;
  
     }
