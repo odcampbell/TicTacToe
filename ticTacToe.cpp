@@ -7,7 +7,7 @@
 using  namespace std;
 
 //allocates mem for board and initializes it
-//main
+
 void MakeBoard(char** board){ //Works
      int i,j;
 
@@ -23,7 +23,6 @@ void MakeBoard(char** board){ //Works
     }
 }
 
-//main
 //helper function 
 void PrintVector(){
     int i;
@@ -33,7 +32,6 @@ void PrintVector(){
     cout<<endl;
 }
 
-//main
 //make a play vs pc option and a play vs another option
 void PrintMenu(){  //Works
     cout<<"   MENU"<< endl;
@@ -46,7 +44,6 @@ void PrintMenu(){  //Works
 }
 
 
-//main
 //code for user vs User Tic Tac Toe (make sep program? include in this file)
 void UserVsUser(char** board){
 
@@ -79,8 +76,7 @@ void UserVsUser(char** board){
 
         //Player #1 choose spot, reloop on bad spot
         while (boardSpot!=true){
-            //FIXME: print hint option here using minimax function?
-            //ie- in place symbol function, have a number to select for hint
+           
             cout<<endl<<"Player #1, Choose a spot: "; 
             
             cin>> userChoice; 
@@ -127,8 +123,12 @@ void UserVsUser(char** board){
 
 }
 
+<<<<<<< HEAD
 //Works! //main
 void ClearBoard(char** board){
+=======
+void clearBoard(char** board){
+>>>>>>> 9735c84b59337de9b8388655b9e3afffeb7fc80c
     int i,j;
 
      //clear placement boardList
@@ -145,13 +145,16 @@ void ClearBoard(char** board){
     }
 }
 
+<<<<<<< HEAD
 //does this free properly?? //main
 void FreeBoard(char** board ){
+=======
+void freeBoard(char** board ){
+>>>>>>> 9735c84b59337de9b8388655b9e3afffeb7fc80c
      int i;
     //initilizes array with spaces
     for(i=0; i<3; i++){
         delete[] board[i];
     }
     delete[] board;
-    //cout<<"free!";
 }
