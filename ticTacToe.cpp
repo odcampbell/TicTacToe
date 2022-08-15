@@ -6,9 +6,8 @@
 
 using  namespace std;
 
-//allocates mem for board and initializes it
-
-void MakeBoard(char** board){ //Works
+//allocates mem for board (2d array) and initializes it
+void MakeBoard(char** board){ 
      int i,j;
 
     //initilizes array with spaces
@@ -23,7 +22,8 @@ void MakeBoard(char** board){ //Works
     }
 }
 
-//helper function 
+//Prints out global check vector, initally used to test vector for 
+//functionality, TODO, adapt to show remaining spots on board
 void PrintVector(){
     int i;
     for(i=0; i<9; i++){
@@ -32,8 +32,8 @@ void PrintVector(){
     cout<<endl;
 }
 
-//make a play vs pc option and a play vs another option
-void PrintMenu(){  //Works
+//Prints main game menu
+void PrintMenu(){
     cout<<"   MENU"<< endl;
     cout<<"----------"<<endl;
     cout<<"1. Play A Multi Player Match"<<endl;
@@ -44,7 +44,12 @@ void PrintMenu(){  //Works
 }
 
 
-//code for user vs User Tic Tac Toe (make sep program? include in this file)
+/*
+  Code for user vs User Tic Tac Toe mode
+ Gets user symbols, then loops through turns where each player chooses
+ a spot on the board, after which a win condition is checked
+ gmae starts and ends in this function, called in main.cpp
+*/
 void UserVsUser(char** board){
 
     //Get Symbols
@@ -123,12 +128,10 @@ void UserVsUser(char** board){
 
 }
 
-<<<<<<< HEAD
-//Works! //main
+//Sets global check vector back to 0's, and board back to spaces
+// after a game is played
 void ClearBoard(char** board){
-=======
-void clearBoard(char** board){
->>>>>>> 9735c84b59337de9b8388655b9e3afffeb7fc80c
+
     int i,j;
 
      //clear placement boardList
@@ -145,12 +148,9 @@ void clearBoard(char** board){
     }
 }
 
-<<<<<<< HEAD
-//does this free properly?? //main
+//memory management
 void FreeBoard(char** board ){
-=======
-void freeBoard(char** board ){
->>>>>>> 9735c84b59337de9b8388655b9e3afffeb7fc80c
+
      int i;
     //initilizes array with spaces
     for(i=0; i<3; i++){

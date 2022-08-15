@@ -7,7 +7,12 @@ using  namespace std;
 char players[2]={'0','0'}; //holds each players char after updated in main game fucntions
 vector<int> boardList(9,0);
 
-//Print current board after user move
+/*Prints the board in its current state with characters in the positions 
+  chosen by the user or cpu
+  Used any time the board is updated, and also at the start of a game,
+  Takes in a 2-d array 
+  See UserVsUser, CPUGoesFirst, PlayVsCPU functions
+*/
 void PrintBoard(char **board){
     int i,j;
     for(i=0; i<3; i++){
@@ -27,12 +32,11 @@ void PrintBoard(char **board){
     }
 }
 
-//prints placement of nubmers on board,
-//made this as an easy function for seeing the number spots since they're noo longer
-//place holders for the array FIXME: need a print remaining spots option, ofc people can see the board
-//but its just a small quality of life improvement to know what spots are left
-//could also use minimax algorithim to suggest hint on best move to user! with an option to see the hint or not
-// before choosing their spot what if it results in a tie?? tell user if they want to see hint
+/*Prints placement of numbers (0-8) on board that users can enter
+  when choosing a spot (which maps to board via switch statement)
+  made this as an easy function for seeing the number spots since they're noo longer
+  place holders for the array, now the array starts off empty
+*/
 void PrintPlacement(){
     int i,j,k=0;
     for(i=0; i<3; i++){
@@ -54,9 +58,9 @@ void PrintPlacement(){
     }
 }
 
-//Called two times to get symbols
-//second time, pass in player one's symbol to make sure player 2 doesn't equal 1
-// or called one time to only get player1's symbol (when playing CPU, who's hard coded)
+//Gets symbols for users to put on board and returns them
+//Takes in an int = 1 for player 1, or 2 for player 2
+//For the second player, pass in player one's symbol to ensure they're unique
 char GetPlayerSymbol(int player, char player1Symbol ='O'){ //WORKS
     //make var and save user input
     char symbol;
@@ -71,19 +75,16 @@ char GetPlayerSymbol(int player, char player1Symbol ='O'){ //WORKS
 
         cin>> symbol;
     }
-    //cin.clear();
+    
     cin.ignore(10000,'\n');
     return symbol;
 }
 
 
-/*Because I initially had the board full of numbers, and allowed numbers as character inputs
-  It was easier to just use a 0-8 check box (the vector) to know if a spot was open in the board
-  or not, after having changed the board to only being filled with ' ' spaces, Im not sure
-  what the practical use of og having a vector for this function really is,
- it is somewhat cleaner than having a switch statement and if statment for each spot on the board
-  so I think Ill leave it in its configuration, obviously whenever the board is changed tho, you must be sure to update the vector
-  or this function would lead to logic errors
+/* Checks whether there is a 0 or 1 in the user's selected position (0-8) in
+  the global vector. If there is a 0, then the spot is open so the user can 
+  place their symbol there. 
+  Returns boolean value, true for open spots, false for filled spot
 */
 bool CheckPos(int userPosition){ //works!
     bool checker = true;
@@ -91,6 +92,9 @@ bool CheckPos(int userPosition){ //works!
     return checker;
 }
 
+//Function used to swap players symbols in the global players array which
+// stores user symbols. Needed this function to use the minimax algorithim
+// for hints. At least it was the easiest way for my configuration
 void SwapUsers(){
     char temp;
     temp = players[1];
@@ -98,9 +102,13 @@ void SwapUsers(){
     players[0]=temp;
    
 }
-  //uses a switch statement to place a symbol at a specific spot on the board
-  //could refactor to not have to do the symbol change thing (would look more like the cpuPlaceSymbol)
-  //function, but would have to type convert the input prior
+
+
+  /*Uses a switch statement to place a symbol at a specific spot on the board
+   could refactor to look like the CPU Place Symbol function by typcasting
+   the user's position before entering it as an argument
+   If the CheckPos function returns false, then no symbol is placed
+  */
 bool PlaceSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works!
     
     bool check = false;
@@ -206,20 +214,18 @@ bool PlaceSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works
    return check;
 }
 
-//Loops through entire board, checks if win var = 3 for each row
-// increments that var every time it finds the symbol, sets a boolean flag 
-//if it has 3 in a row
+//Loops through entire board (2d array), checks if any row has three of 
+// a user's symbols, then sets a boolean flag accordingly
 bool HorizonalWin(char symbol, char** board){ //WORKS
     int i,j, win=0;
     bool winCond = false;
-    //i=rows
-    //j=cols
+
     for(i=0; i<3; i++){
         for(j=0; j<3; j++){
             if(board[i][j] == symbol){
                 win++;
             }
-            else win=0;//not needed?
+            else win=0;
         }
         if(win == 3) winCond=true;
         win=0;
@@ -227,8 +233,8 @@ bool HorizonalWin(char symbol, char** board){ //WORKS
     return winCond;
 }
 
-//Loops through entire board, keeps count var for each col, 
-//if any of them = 3, return true
+//Loops through entire board (2d array) and checks to see if any column
+// has three of a user's symbols, then sets a boolean flag accordingly
 bool VerticalWin(char symbol,char** board){
     int i,j;
     int win1=0,win2=0,win3=0;
@@ -260,9 +266,12 @@ bool VerticalWin(char symbol,char** board){
     return winCond;
 }
 
-/*Since I started my board at 0 instead of 1, I believe I through off potential 
-  to us a better means of checking via modulo, so I hard coded it instead
-*/
+/*
+Hard coded a check for each diagonal spot in 2d array, returns boolean
+ if user has 3 symbols ina row
+ Since I started my board at 0 instead of 1, I believe I through off potential 
+ to us a different means of checking via modulo 
+ */
 bool DiagonalWin(char symbol,char** board){
     int win =0;
     bool winCond = false;
@@ -274,6 +283,7 @@ bool DiagonalWin(char symbol,char** board){
 }
 
 //Checks to see if player with the given symbol has three of them in a row
+// vertically, horizontally, or diagonally,
 //Used to signal that someone has won the game and to exit the game being played
 bool CheckWinCondition(char symbol, char** board){
     bool winCond = false;

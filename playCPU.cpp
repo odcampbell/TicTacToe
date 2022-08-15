@@ -64,7 +64,9 @@ void CpuPlaceSymbol(char symbol, int pos, char**board){
     }
 }
 
-//Resets board and boardList at position, for cpu to use Minimax 
+//Resets board and boardList(global vector) at the given position, made as a helper cpu to use Minimax
+// After cpu symbol is placed in an open spot, temporarily to test subsequent game
+//states, this function removes it, making for cleaner associated minimax functions
 void RemoveSymbol(int pos, char**board){
 
     switch(pos){
@@ -122,6 +124,10 @@ void RemoveSymbol(int pos, char**board){
     }
 }
 
+//After the MiniMax function runs for a particular board placement, it returns
+// a positive number, negative number, or 0
+// based on the outcome of the game (if played from that point)
+// This function represents and returns those end states as 0, 1, -1
 int MiniMaxCond(int winCond){
     int minMaxVal = 0;
     switch(winCond){
@@ -144,8 +150,14 @@ int MiniMaxCond(int winCond){
     return minMaxVal;
 }
 
-//allows playing AI, didnt need bool actually, not really accounting for 
-//depth so cp wont always take insta win, but may take double win next turn
+/*Allows for playing CPU 
+ Recursively allows CPU to test the possible remaining game outcomes,
+ Returns the outcome whenever a game is over, keeps track of the best one to return
+ Only gets the best score from the current board, so a parent function 
+ (FindCPUSpot) calls this for every remaining spot on the actual board
+ (didnt need bool actually, not really accounting for 
+ depth so cp wont always take insta win, but may take double win next turn)
+*/
 int MiniMax(char** board, int depth, bool isMaximizing){
     //Terminating Case: There are no more moves to make due to a win or a tie
     int result = AllWinConditions(board);
@@ -198,6 +210,9 @@ int MiniMax(char** board, int depth, bool isMaximizing){
     }
 }
 
+//Calls MiniMax function for each remaining spot on the board,
+//keeps track of best score and corresponding best spot 
+// returns best spot
  int FindCpuSpot(char cpuSymbol, char**board,bool turn){
     int i,score;
     bool spot = false;
@@ -223,7 +238,9 @@ int MiniMax(char** board, int depth, bool isMaximizing){
     return bestSpot;
 }
 
-//code for playing CP Tic Tac Toe where cp goes second
+//Code for playing CPU Tic Tac Toe where CPU goes second 
+//supports using minimax for hints
+//see Player VS Player function for more info
 void PlayVsCp(char** board){
 
       //Get Symbols
@@ -298,6 +315,9 @@ void PlayVsCp(char** board){
 
 }
 
+//Code for playing CPU Tic Tac Toe where CPU goes first
+//Supports using minimax for hints
+//see Player VS Player function for more info
 void CpuGoesFirst(char** board){
 
       //Get Symbols //changed player2 to player in this context makes more sense
