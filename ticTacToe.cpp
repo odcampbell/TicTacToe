@@ -59,7 +59,7 @@ void UserVsUser(char** board){
     player1 = GetPlayerSymbol(1);
 
     cout<<endl<<"Player 2, enter your symbol: ";
-    player2 = GetPlayerSymbol(2,player1);
+    player2 = GetPlayerSymbol(2, player1);
 
     cout<<"1 = "<<player1<<endl<<"2 = "<<player2<<endl;
     cout<<endl;
@@ -71,16 +71,16 @@ void UserVsUser(char** board){
 
     //Get position and place on board
     char userChoice;
-    int tie=0;
-    bool boardSpot=false, win1= false,win2=false;
+    int tie = 0;
+    bool boardSpot = false, win1 = false, win2 = false;
     
     while(1){
         //cin.ignore(numeric_limits<streamsize>::max(), '\n');
         //Break on tie
-        if(tie==9) break;
+        if(tie == 9) break;
 
         //Player #1 choose spot, reloop on bad spot
-        while (boardSpot!=true){
+        while (boardSpot! = true){
            
             cout<<endl<<"Player #1, Choose a spot: "; 
             
@@ -96,18 +96,18 @@ void UserVsUser(char** board){
         }
 
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        if((win1=CheckWinCondition(player1,board))) break;
+        if((win1 = CheckWinCondition(player1,board))) break;
         
         tie++;
-        if(tie==9) break;
+        if(tie == 9) break;
 
         boardSpot = false;
         //Player #2 choose spot, reloop on bad spot
-        while (boardSpot!=true){
+        while (boardSpot != true){
 
             cout<<endl<<"Player #2, Choose a spot: "; 
             cin>> userChoice; 
-            boardSpot = PlaceSymbol(player2,userChoice,board);
+            boardSpot = PlaceSymbol(player2, userChoice, board);
             if(boardSpot == false){
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 continue;
@@ -116,15 +116,15 @@ void UserVsUser(char** board){
             PrintBoard(board);
         }
 
-        if((win2=CheckWinCondition(player2,board))) break;
-        boardSpot=false;
+        if((win2 = CheckWinCondition(player2, board))) break;
+        boardSpot = false;
         tie++;
 
     }
 
-    if(win1) cout<<endl<<"Congrats Player #1, You Won!!"<<endl;
-    else if(win2) cout<<endl<<"Congrats Player #2, You Won!!"<<endl;
-    else if(tie==9) cout<<endl<<"This match was a Tie!"<<endl;
+    if(win1) cout<<endl<< "Congrats Player #1, You Won!!" <<endl;
+    else if(win2) cout<<endl<< "Congrats Player #2, You Won!!" <<endl;
+    else if(tie == 9) cout<<endl<< "This match was a Tie!" <<endl;
 
 }
 
@@ -143,7 +143,6 @@ void ClearBoard(char** board){
     for(i=0; i<3; i++){
         for(j=0; j<3; j++){
             board[i][j] = ' ';
-        
         }
     }
 }

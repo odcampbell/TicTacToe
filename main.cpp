@@ -22,7 +22,7 @@ int main(){
         if(validSelection){ 
 
             //start of new match
-            cout<<"Here's a Clean Board"<<endl;
+            cout<< "Here's a Clean Board" <<endl;
             PrintPlacement();
             cout<<endl;
             PrintMenu();
@@ -50,21 +50,21 @@ int main(){
 
         //plays one game
         if(userSelection == 1){
-            cout<< endl <<"Let's play!"<<endl<< endl;
+            cout<< endl << "Let's play!" <<endl<< endl;
             cin.ignore(10000,'\n');
             UserVsUser(gameBoard); 
             ClearBoard(gameBoard);
             cout<<endl;
         }
         else if(userSelection == 2){
-            cout<< endl <<"Playing CPU! You go first!"<<endl<< endl;
+            cout<< endl << "Playing CPU! You go first!" <<endl<< endl;
 
             PlayVsCp(gameBoard);
             ClearBoard(gameBoard);
             cout<<endl;
         }
         else if(userSelection == 3){
-            cout<< endl <<"Playing CPU! And CPU goes First!"<<endl<< endl;
+            cout<< endl << "Playing CPU! And CPU goes First!" <<endl<< endl;
 
             CpuGoesFirst(gameBoard); 
             ClearBoard(gameBoard);

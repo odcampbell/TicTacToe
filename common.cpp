@@ -4,7 +4,7 @@
 
 using  namespace std;
 
-char players[2]={'0','0'}; //holds each players char after updated in main game fucntions
+char players[2] = {'0','0'}; //holds each players char after updated in main game fucntions
 vector<int> boardList(9,0);
 
 /*Prints the board in its current state with characters in the positions 
@@ -66,7 +66,7 @@ char GetPlayerSymbol(int player, char player1Symbol ='O'){ //WORKS
     char symbol;
     cin>> symbol;
     while(1){
-            //if on second user, make sure it odesnt equal the first
+
         if((player == 2) && (symbol == player1Symbol)){
             cout<<endl;
             cout<<"Choose a different symbol than player 1!"<<endl <<"Player 2: ";
@@ -98,8 +98,8 @@ bool CheckPos(int userPosition){
 void SwapUsers(){
     char temp;
     temp = players[1];
-    players[1]=players[0];
-    players[0]=temp;
+    players[1] = players[0];
+    players[0] = temp;
    
 }
 
@@ -114,11 +114,11 @@ void SwapUsers(){
 bool PlaceSymbol(char symbol, char pos, char** board, bool vsCPU=false){
     
     bool check = false;
-    int pos1=0;
-    int hint=0;
+    int pos1 = 0;
+    int hint = 0;
     switch(pos){
         case '0':
-            pos1=0;
+            pos1 = 0;
             if((check = CheckPos(pos1))){
                 board[0][0] = symbol;
                 boardList.at(pos1) = 1;
@@ -219,7 +219,7 @@ bool PlaceSymbol(char symbol, char pos, char** board, bool vsCPU=false){
 //Loops through entire board (2d array), checks if any row has three of 
 // a user's symbols, then sets a boolean flag accordingly
 bool HorizonalWin(char symbol, char** board){ //WORKS
-    int i,j, win=0;
+    int i,j, win = 0;
     bool winCond = false;
 
     for(i=0; i<3; i++){
@@ -227,9 +227,9 @@ bool HorizonalWin(char symbol, char** board){ //WORKS
             if(board[i][j] == symbol){
                 win++;
             }
-            else win=0;
+            else win = 0;
         }
-        if(win == 3) winCond=true;
+        if(win == 3) winCond = true;
         win=0;
     }
     return winCond;
@@ -239,7 +239,7 @@ bool HorizonalWin(char symbol, char** board){ //WORKS
 // has three of a user's symbols, then sets a boolean flag accordingly
 bool VerticalWin(char symbol,char** board){
     int i,j;
-    int win1=0,win2=0,win3=0;
+    int win1 = 0,win2 = 0,win3 = 0;
     bool winCond = false;
     //i=rows
     //j=cols
@@ -247,23 +247,23 @@ bool VerticalWin(char symbol,char** board){
         for(j=0; j<3; j++){
 
             //col 0
-            if(j==0){
+            if(j == 0){
                 if(board[i][j] == symbol) win1++;
             } 
 
             //col 1
-            if(j==1){
+            if(j == 1){
                 if(board[i][j] == symbol) win2++;
             } 
 
             //col 2
-            if(j==2){
+            if(j == 2){
                 if(board[i][j] == symbol) win3++;
             } 
         }
     }
 
-    if(win1 == 3 || win2 == 3 || win3 == 3) winCond=true;
+    if(win1 == 3 || win2 == 3 || win3 == 3) winCond = true;
 
     return winCond;
 }
@@ -275,11 +275,11 @@ Hard coded a check for each diagonal spot in 2d array, returns boolean
  to us a different means of checking via modulo 
  */
 bool DiagonalWin(char symbol,char** board){
-    int win =0;
+    int win = 0;
     bool winCond = false;
     if((board[0][0] == symbol) && (board[1][1] == symbol) && (board[2][2] == symbol)) win = 3;
     if((board[0][2] == symbol) && (board[1][1] == symbol) && (board[2][0] == symbol)) win = 3;
-    if(win==3) winCond = true;
+    if(win == 3) winCond = true;
 
     return winCond;
 }
@@ -301,7 +301,7 @@ bool CheckWinCondition(char symbol, char** board){
 //added this code really to help with the minimax function which needed to know the games state
 int AllWinConditions(char** board){
     bool win1,win2;
-    int openSpots=0;
+    int openSpots = 0;
 
     win1 = CheckWinCondition(players[0],board);//user
     win2 = CheckWinCondition(players[1],board); //computer
