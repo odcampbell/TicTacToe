@@ -34,7 +34,7 @@ void PrintBoard(char **board){
 
 /*Prints placement of numbers (0-8) on board that users can enter
   when choosing a spot (which maps to board via switch statement)
-  made this as an easy function for seeing the number spots since they're noo longer
+  made this as an easy function for seeing the number spots since they're no longer
   place holders for the array, now the array starts off empty
 */
 void PrintPlacement(){
@@ -86,7 +86,7 @@ char GetPlayerSymbol(int player, char player1Symbol ='O'){ //WORKS
   place their symbol there. 
   Returns boolean value, true for open spots, false for filled spot
 */
-bool CheckPos(int userPosition){ //works!
+bool CheckPos(int userPosition){
     bool checker = true;
     if(boardList.at(userPosition) == 1) checker = false;
     return checker;
@@ -94,7 +94,7 @@ bool CheckPos(int userPosition){ //works!
 
 //Function used to swap players symbols in the global players array which
 // stores user symbols. Needed this function to use the minimax algorithim
-// for hints. At least it was the easiest way for my configuration
+// for hints. At least it was the easiest method for my configuration
 void SwapUsers(){
     char temp;
     temp = players[1];
@@ -104,12 +104,14 @@ void SwapUsers(){
 }
 
 
+
   /*Uses a switch statement to place a symbol at a specific spot on the board
    could refactor to look like the CPU Place Symbol function by typcasting
    the user's position before entering it as an argument
    If the CheckPos function returns false, then no symbol is placed
+   Takes in a boolean variable to control whether hints are available
   */
-bool PlaceSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works!
+bool PlaceSymbol(char symbol, char pos, char** board, bool vsCPU=false){
     
     bool check = false;
     int pos1=0;
@@ -210,7 +212,7 @@ bool PlaceSymbol(char symbol, char pos, char** board, bool vsCPU=false){ //works
         default:
             cout<<"Error! Pick a valid board placement (0-8)"<<endl;
     }
-    //board is initialized w/ 0-8, if a space isnt 0-8, it's used
+   
    return check;
 }
 

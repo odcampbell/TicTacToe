@@ -45,10 +45,10 @@ void PrintMenu(){
 
 
 /*
-  Code for user vs User Tic Tac Toe mode
+  Code for User vs User Tic Tac Toe mode
  Gets user symbols, then loops through turns where each player chooses
  a spot on the board, after which a win condition is checked
- gmae starts and ends in this function, called in main.cpp
+ Game starts and ends in this function, It is called in main.cpp
 */
 void UserVsUser(char** board){
 

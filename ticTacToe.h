@@ -1,8 +1,8 @@
 #pragma once
 
-void MakeBoard(char** board); //Works
+void MakeBoard(char** board);
 void PrintVector();
-void PrintMenu();  //Works
+void PrintMenu(); 
 void UserVsUser(char** board);
 void ClearBoard(char** board);
 void FreeBoard(char** board );
