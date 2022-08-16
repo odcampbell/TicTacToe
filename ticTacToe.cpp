@@ -80,7 +80,9 @@ void UserVsUser(char** board){
         if(tie == 9) break;
 
         //Player #1 choose spot, reloop on bad spot
-        while (boardSpot! = true){
+        //TODO: might as well make a turn function - takes in board and int for user? 
+        // cause of global symbol array?
+        while (boardSpot != true){ 
            
             cout<<endl<<"Player #1, Choose a spot: "; 
             
