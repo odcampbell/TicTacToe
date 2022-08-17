@@ -1,4 +1,5 @@
 #pragma once
+//Holds functions and containers used in both TicTacToe.cpp and playCPU.cpp
 
 #include <vector>
 

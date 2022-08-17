@@ -1,5 +1,7 @@
 #pragma once
 
+//Holds functions used primarily for playing the CPU
+
 void PlayVsCp(char** board);
 int FindCpuSpot(char cpuSymbol, char**board, bool turn);
 int MiniMax(char** board, int depth, bool isMaximizing);

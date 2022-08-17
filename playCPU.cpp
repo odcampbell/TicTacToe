@@ -1,3 +1,5 @@
+//Holds functions used primarily for playing the CPU
+
 #include <iostream>
 #include <vector>
 #include<ios> //used to get stream size

@@ -1,5 +1,8 @@
 #pragma once
 
+//Holds basic functions for playing a multiplayer game of Tic Tac Toe, and most functions
+// called by main
+
 void MakeBoard(char** board);
 void PrintVector();
 void PrintMenu(); 

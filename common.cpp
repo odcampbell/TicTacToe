@@ -1,3 +1,5 @@
+//Holds functions and containers used in both TicTacToe.cpp and playCPU.cpp
+
 #include <iostream>
 #include <vector>
 #include "playCPU.h"
