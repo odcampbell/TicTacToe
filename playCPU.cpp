@@ -9,6 +9,7 @@
 using  namespace std;
 
 //Places cpu symbol on board, used for that and temporarally using Minimax
+//doesn't check spots (via boardList vector) because the parent calling function does
 void CpuPlaceSymbol(char symbol, int pos, char**board){
 
     switch(pos){
@@ -347,7 +348,7 @@ void CpuGoesFirst(char** board){
 
         //Player #1 choose spot, reloop on bad spot
         cout<<endl<< "CPU is choosing a spot: "; 
-        
+
         cpuChoice = FindCpuSpot(cpuPlayer, board, false);
         CpuPlaceSymbol(cpuPlayer, cpuChoice, board);
         cout<<endl;
