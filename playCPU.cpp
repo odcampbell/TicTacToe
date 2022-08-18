@@ -202,7 +202,7 @@ int MiniMax(char** board, int depth, bool isMaximizing){
             if(CheckPos(i)){
                 spot = i;
                 CpuPlaceSymbol(players[0], spot, board); //put opponent on board - here's why swap is needed
-                score = MiniMax(board, depth+1, true); //assume theyre optomizing - true for next turn, cpu's turn
+                score = MiniMax(board, depth+1, true); //assume theyre optimizing - true for next turn, cpu's turn
                 RemoveSymbol(spot, board);
 
                 if (score < bestScore){
