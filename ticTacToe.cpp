@@ -153,7 +153,6 @@ void ClearBoard(char** board){
 void FreeBoard(char** board ){
 
      int i;
-    //initilizes array with spaces
     for(i=0; i<3; i++){
         delete[] board[i];
     }
