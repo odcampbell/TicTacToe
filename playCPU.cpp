@@ -258,7 +258,7 @@ void PlayVsCp(char** board){
     players[0] = player1;
     players[1] = cpuPlayer;
 
-    cout<<"Player 1 = "< <players[0] <<endl<< "CPU = " << players[1] <<endl;
+    cout<<"Player 1 = "<<players[0] <<endl<< "CPU = " << players[1] <<endl;
     cout<<endl;
 
     PrintBoard(board);
