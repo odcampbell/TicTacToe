@@ -135,12 +135,12 @@ int MiniMaxCond(int winCond){
     switch(winCond){
         case 1:
             minMaxVal = -1;
-            //user won, minimizing so -1
+            //user won, user is minimizing so -1
             break;
 
         case 2:
             minMaxVal = 1;
-            // cpu won, maximizing so +1
+            // cpu won, cpu is maximizing so +1
             break;
 
         case 3:
@@ -155,10 +155,11 @@ int MiniMaxCond(int winCond){
 /*Allows for playing CPU 
  Recursively allows CPU to test the possible remaining game outcomes,
  Returns the outcome whenever a game is over, keeps track of the best one to return
- Only gets the best score from the current board, so a parent function 
- (FindCPUSpot) calls this for every remaining spot on the actual board
- (didnt need bool actually, not really accounting for 
- depth so cp wont always take insta win, but may take double win next turn)
+ Only gets the best score from the *current actual* board, so a parent function 
+ (FindCPUSpot) calls MiniMax for every remaining spot on the actual board
+ e.g. "If cpu makes a play on the actual board pos 6, MiniMax will rate that move,
+       and FindCPUSpot would undo the move, then try pos 7 and so on, keeping the 
+       best ratings"
 */
 int MiniMax(char** board, int depth, bool isMaximizing){
     //Terminating Case: There are no more moves to make due to a win or a tie
@@ -190,7 +191,7 @@ int MiniMax(char** board, int depth, bool isMaximizing){
         }
         return bestScore;
     }
-    else{
+    else{ //opponent's turn
         int i,score;
         int spot = 0;
         int bestScore = 10000000;
@@ -199,8 +200,8 @@ int MiniMax(char** board, int depth, bool isMaximizing){
             //if open spot
             if(CheckPos(i)){
                 spot = i;
-                CpuPlaceSymbol(players[0], spot, board);
-                score = MiniMax(board, depth+1, true);
+                CpuPlaceSymbol(players[0], spot, board); //put opponent on board - here's why swap is needed
+                score = MiniMax(board, depth+1, true); //assume theyre optomizing - true for next turn, cpu's turn
                 RemoveSymbol(spot, board);
 
                 if (score < bestScore){
@@ -269,9 +270,6 @@ void PlayVsCp(char** board){
     bool boardSpot = false, win1 = false, win2 = false;
     
     while(1){
-
-        //Break on tie why here??
-        if(tie == 9) break;
 
         //Player #1 choose spot, reloop on bad spot
         while (boardSpot != true){
@@ -346,10 +344,10 @@ void CpuGoesFirst(char** board){
     bool boardSpot = false, win1 = false, win2 = false;
     
     while(1){
-        if(tie == 9) break;
 
         //Player #1 choose spot, reloop on bad spot
         cout<<endl<< "CPU is choosing a spot: "; 
+        
         cpuChoice = FindCpuSpot(cpuPlayer, board, false);
         CpuPlaceSymbol(cpuPlayer, cpuChoice, board);
         cout<<endl;
@@ -384,8 +382,9 @@ void CpuGoesFirst(char** board){
         tie++;
  
     }
+
     if(win1) cout<<endl<< "Congrats Player #2, You Won!!" <<endl;
-    else if(win2) cout<<endl<< "Congrats CPU, You Won!!" <<endl;
+    else if(win2) cout<<endl<< "The CPU Won!!" <<endl;
     else if(tie == 9) cout<<endl<< "This match was a Tie!" <<endl;
 
 }

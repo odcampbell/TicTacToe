@@ -82,7 +82,6 @@ char GetPlayerSymbol(int player, char player1Symbol ='O'){ //WORKS
     return symbol;
 }
 
-
 /* Checks whether there is a 0 or 1 in the user's selected position (0-8) in
   the global vector. If there is a 0, then the spot is open so the user can 
   place their symbol there. 
@@ -94,18 +93,12 @@ bool CheckPos(int userPosition){
     return checker;
 }
 
-//Function used to swap players symbols in the global players array which
+//Wrapper unction used to swap players symbols in the global players array which
 // stores user symbols. Needed this function to use the minimax algorithim
 // for hints. At least it was the easiest method for my configuration
 void SwapUsers(){
-    char temp;
-    temp = players[1];
-    players[1] = players[0];
-    players[0] = temp;
-   
+    swap(players[0],players[1]);  
 }
-
-
 
   /*Uses a switch statement to place a symbol at a specific spot on the board
    could refactor to look like the CPU Place Symbol function by typcasting
@@ -205,6 +198,8 @@ bool PlaceSymbol(char symbol, char pos, char** board, bool vsCPU=false){
                 cout<<"Error! Pick a valid board placement (0-8)"<<endl;
                 break;
             }
+
+            //If playing cpu, swap symbols temporarily to make minimax function work for you!
             SwapUsers();
             hint = FindCpuSpot(symbol,board,false);
             cout<< "Try this spot: "<<hint<<endl;

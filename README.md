@@ -23,3 +23,5 @@ To compile
  If you experience any issues on your side, you may need to add a compiling flag, 
     or edit parts of the code accordingly (e.g. maybe intialize some variables when they're declared),
     but feel free to let me know and send some suggestions
+
+MiniMax Info: https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-1-introduction/

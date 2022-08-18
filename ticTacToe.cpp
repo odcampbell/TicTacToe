@@ -78,9 +78,6 @@ void UserVsUser(char** board){
     bool boardSpot = false, win1 = false, win2 = false;
     
     while(1){
-        //cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        //Break on tie
-        if(tie == 9) break;
 
         //Player #1 choose spot, reloop on bad spot
         //TODO: might as well make a turn function - takes in board and int for user? 
@@ -103,7 +100,7 @@ void UserVsUser(char** board){
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         if((win1 = CheckWinCondition(player1,board))) break;
         
-        tie++;
+        tie++; //counts turns, can only tie after player 1
         if(tie == 9) break;
 
         boardSpot = false;
