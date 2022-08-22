@@ -1,8 +1,8 @@
-"# TicTacToe" 
+# TicTacToe
 
 Demo Video: https://youtu.be/xWvhoEAuglA
 
-3 options to play 
+## 3 options to play 
 
 1. Vs another
 2. Going first against CPU going second
