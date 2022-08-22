@@ -1,4 +1,4 @@
-# TicTacToe
+# Ti Tac Toe
 
 Demo Video: https://youtu.be/xWvhoEAuglA
 
